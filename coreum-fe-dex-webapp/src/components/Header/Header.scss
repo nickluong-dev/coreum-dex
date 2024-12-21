@@ -1,0 +1,37 @@
+.header-container {
+  display: flex;
+  padding: 16px 24px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  background: #101216;
+  position: relative;
+  // overflow: hidden;
+
+  .vertical-divider {
+    width: 1px;
+    height: 38px;
+    background: linear-gradient(
+      to bottom,
+      rgba(8, 8, 8, 0) 0%,
+      #5e6773 49.99%,
+      rgba(8, 8, 8, 0) 100%
+    );
+    margin: 0 24px;
+  }
+  .left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .market {
+      display: flex;
+      gap: 40px;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .right {
+    display: flex;
+    gap: 8px;
+  }
+}

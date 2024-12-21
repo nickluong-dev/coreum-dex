@@ -1,0 +1,13 @@
+.home-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+    height: 100%;
+  }
+}

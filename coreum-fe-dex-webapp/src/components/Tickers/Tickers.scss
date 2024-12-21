@@ -1,0 +1,43 @@
+.tickers-container {
+  display: flex;
+  gap: 40px;
+  .price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    .price {
+      color: var(--Text-button-text, #eee);
+      font-family: "Noto Sans";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px; /* 125% */
+    }
+    .change {
+      font-family: "Noto Sans";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px; /* 150% */
+      letter-spacing: -0.24px;
+
+      &.negative {
+        color: var(--Text-text-red, #de0f3e);
+      }
+      &.positive {
+        color: var(--Text-text-green, #25d695);
+      }
+    }
+  }
+  .label {
+    color: var(--Shades-Carbon, #5e6773);
+    font-family: "Noto Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+    letter-spacing: -0.18px;
+    text-transform: capitalize;
+  }
+}
