@@ -3,7 +3,7 @@ import { Fragment, useRef } from "react";
 import "./ExchangeHistory.scss";
 import dayjs from "dayjs";
 import { tradeHistory } from "@/mock/trades";
-("mocks/trades");
+// const tradeHistory = null;
 
 const ExchangeHistory = () => {
   // const { market, network } = useStore();
@@ -74,7 +74,7 @@ const ExchangeHistory = () => {
         <div className="exchange-history-body-row label time">Time</div>
       </div>
 
-      {tradeHistory && tradeHistory.length > 0 && (
+      {tradeHistory && tradeHistory.length > 0 ? (
         <div ref={historyRef} className="exchange-history-body-rows">
           {tradeHistory.map((trade: any, index: number) => {
             return (
@@ -95,6 +95,11 @@ const ExchangeHistory = () => {
               </Fragment>
             );
           })}
+        </div>
+      ) : (
+        <div className="no-data-container">
+          <img src="/trade/images/warning.png" alt="warning" />
+          <p className="no-data">No Data Found</p>
         </div>
       )}
     </div>

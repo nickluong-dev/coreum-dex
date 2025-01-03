@@ -70,4 +70,64 @@ export type IToken = {
   limit?: string;
 };
 
+// tradingview
 
+export type BarPeriodParams = {
+  from: number;
+  to: number;
+  countBack?: number;
+  firstDataRequest?: boolean;
+};
+
+export type DataFeedAsset = {
+  id: string;
+  name: string;
+};
+
+export type ChartSubscription = {
+  key: string;
+  symbolInfo: BarSymbolInfo;
+  resolution: string;
+  onRealtimeCallback?: any;
+};
+
+export type BarSymbolInfo = {
+  id: string;
+  name: string;
+  exchange: string;
+  session: string;
+  timezone: string;
+  has_intraday: boolean;
+  has_weekly_and_monthly: boolean;
+  supported_resolutions: string[];
+  pricescale?: number;
+  minmov: number;
+  base_name?: string[];
+  legs?: string[];
+  full_name?: string;
+  pro_name?: string;
+  data_status?: string;
+  ticker?: string;
+};
+
+// order history
+export type FormattedOpenOrder = {
+  side: string;
+  price: string;
+  volume: string;
+  total: string;
+  sequence: number;
+};
+export type Exchange = {
+  id: string;
+  txid: string;
+  symbol: string;
+  buyer: string;
+  seller: string;
+  is_seller_taker: boolean;
+  amount: string;
+  price: string;
+  quote_amount: string;
+  executed_at: string;
+  time: string;
+};

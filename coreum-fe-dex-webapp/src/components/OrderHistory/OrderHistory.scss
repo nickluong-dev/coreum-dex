@@ -7,4 +7,191 @@
   align-items: flex-start;
   flex: 1 0 0;
   background: #101216;
+
+  .order-history-tabs {
+    padding: 16px 16px 0 16px;
+    display: flex;
+    gap: 20px;
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+    align-items: center;
+    justify-content: space-between;
+
+    .options {
+      display: flex;
+      gap: 20px;
+      .tab {
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.15s ease-in-out;
+        text-align: center;
+        font-family: "Space Grotesk";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.28px;
+        color: #5e6773;
+        position: relative;
+      }
+
+      &.active {
+        font-style: normal;
+        font-weight: 500;
+        background: linear-gradient(180deg, #fff 0%, #5e6773 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .tab::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #25d695;
+        transition: width 0.1s ease-in-out;
+      }
+
+      .tab:hover::after,
+      .tab.active::after {
+        width: 100%;
+      }
+
+      .tab.active {
+        background: linear-gradient(180deg, #fff 0%, #5e6773 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+      }
+    }
+
+    .close-icon {
+      justify-self: flex-end;
+      img {
+        width: 16px;
+      }
+    }
+  }
+
+  .order-history-labels {
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 0.4fr 0.8fr 0.8fr 0.7fr 1fr;
+    justify-content: space-between;
+    text-overflow: ellipsis;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+
+    & > div:last-child {
+      text-align: right;
+    }
+  }
+  .open-orders-labels {
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 0.6fr 0.8fr 0.8fr 0.4fr 0.1fr;
+    justify-content: space-between;
+    text-overflow: ellipsis;
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+
+    & > div:last-child {
+      text-align: right;
+    }
+  }
+
+  .order-history-body {
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .history-row {
+      text-overflow: ellipsis;
+      font-family: "DM Sans";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 18px; /* 150% */
+      letter-spacing: -0.24px;
+      display: grid;
+      grid-template-columns: 0.4fr 0.8fr 0.8fr 0.7fr 1fr;
+      justify-content: space-between;
+      .date {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: right;
+
+        & :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .spinner-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+    }
+  }
+
+  .no-orders {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: #c3c3c3;
+  }
+
+  .open-row {
+    display: grid;
+    grid-template-columns: 0.6fr 0.8fr 0.8fr 0.4fr 0.1fr;
+    justify-content: space-between;
+    .cancel-order:hover {
+      cursor: pointer;
+    }
+
+    .sell,
+    .buy {
+      font-size: 12px;
+    }
+
+    & > p:last-child {
+      text-align: right;
+    }
+  }
+
+  .price,
+  .volume,
+  .total,
+  .date {
+    text-overflow: ellipsis;
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 150% */
+    letter-spacing: -0.24px;
+  }
 }

@@ -1,10 +1,8 @@
-import "./orderbook.scss";
 import { useState, useEffect, useRef } from "react";
 import BigNumber from "bignumber.js";
 import { useStore } from "@/state";
 import { TooltipPosition, useTooltip } from "@/hooks";
 import { toFixedDown, minus } from "@/utils";
-import { orderbook } from "@/mock/orderbook";
 import { FormatNumber } from "../FormatNumber";
 import "./Orderbook.scss";
 import { OrderType, OrderbookAction } from "@/types/market";
@@ -26,6 +24,9 @@ const PRECISION_OPTIONS = [
   { key: "0.01" },
   { key: "0.1" },
 ];
+
+import { orderbook } from "@/mock/orderbook";
+// const orderbook = null;
 
 export default function Orderbook({
   setOrderbookAction,
@@ -294,179 +295,171 @@ export default function Orderbook({
 
   return (
     <div className="orderbook-container" ref={componentRef}>
-      {orderbook ? (
-        <div className="orderbook-body">
-          <div className="orderbook-header ">
-            <div className="title">Orderbook</div>
-          </div>
-
-          <div className="orderbook-header-wrapper">
-            <div className="orderbook-header-cell">Price</div>
-            <div className="orderbook-header-cell">Volume</div>
-            <div className="orderbook-header-cell">Total</div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-              overflowY: "hidden",
-            }}
-          >
-            {orderbookType === ORDERBOOK_TYPE.ASK ||
-            orderbookType === ORDERBOOK_TYPE.BOTH ? (
-              <div
-                className="orderbook-wrapper"
-                style={{
-                  flexDirection: "column-reverse",
-                }}
-                id="asks_ob"
-                onMouseLeave={() => {
-                  hideTooltip();
-                }}
-              >
-                {asksData.map((ask, i) => {
-                  const volBar =
-                    (ask[1] * 100) / topAskVolume > 3
-                      ? (ask[1] * 100) / topAskVolume
-                      : 2;
-                  return (
-                    <div
-                      key={i}
-                      className={"orderbook-row"}
-                      data-value={ask[0].toString() + "_ask"}
-                      onMouseOver={(e: React.MouseEvent<HTMLDivElement>) => {
-                        toggleTooltip(e, true, i, ORDERBOOK_TYPE.ASK);
-                      }}
-                      onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-                        toggleTooltip(e, false, i, ORDERBOOK_TYPE.ASK);
-                      }}
-                      onClick={() =>
-                        setOrderbookAction({
-                          type: OrderType.BUY,
-                          price: ask[0],
-                          volume: totalVolume,
-                        })
-                      }
-                    >
-                      <div
-                        style={{
-                          width: `${volBar}%`,
-                          ["left"]: 0,
-                        }}
-                        className="volume-bar asks"
-                      />
-                      <div className="orderbook-numbers-wrapper">
-                        <FormatNumber
-                          number={ask[0]}
-                          precision={7}
-                          className="orderbook-number price-asks"
-                        />
-                        <FormatNumber
-                          number={ask[1]}
-                          precision={7}
-                          className="orderbook-number"
-                        />
-                        <FormatNumber
-                          number={ask[2]}
-                          precision={7}
-                          className="orderbook-number"
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : null}
-
-            {spread && (
-              <div className="orderbook-spread">
-                <p className="spread-label">{`${counter?.symbol} Spread:`}</p>
-                <FormatNumber number={spread?.valueOf()} />
-              </div>
-            )}
-
-            {orderbookType === ORDERBOOK_TYPE.BID ||
-            orderbookType === ORDERBOOK_TYPE.BOTH ? (
-              <div
-                className="orderbook-wrapper"
-                id="bids_ob"
-                onMouseLeave={() => {
-                  hideTooltip();
-                }}
-              >
-                {bidsData.map((bid, i) => {
-                  const volBar =
-                    (bid[1] * 100) / topBidVolume > 3
-                      ? (bid[1] * 100) / topBidVolume
-                      : 2;
-
-                  return (
-                    <div
-                      key={i}
-                      className="orderbook-row"
-                      data-value={bid[0].toString() + "_bid"}
-                      onMouseOver={(e) => {
-                        toggleTooltip(e, true, i, ORDERBOOK_TYPE.BID);
-                      }}
-                      onMouseLeave={(e) => {
-                        toggleTooltip(e, false, i, ORDERBOOK_TYPE.BID);
-                      }}
-                      onClick={() =>
-                        setOrderbookAction({
-                          type: OrderType.SELL,
-                          price: bid[0],
-                          volume: totalVolume,
-                        })
-                      }
-                    >
-                      <div
-                        style={{
-                          width: `${volBar}%`,
-                          left: 0,
-                        }}
-                        className="volume-bar bids"
-                      />
-                      <div className="orderbook-numbers-wrapper">
-                        <FormatNumber
-                          number={bid[0]}
-                          precision={7}
-                          className="orderbook-number price-bids"
-                        />
-                        <FormatNumber
-                          number={bid[1]}
-                          precision={7}
-                          className="orderbook-number"
-                        />
-                        <FormatNumber
-                          number={bid[2]}
-                          precision={7}
-                          className="orderbook-number"
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : null}
-          </div>
+      <div className="orderbook-body">
+        <div className="orderbook-header ">
+          <div className="title">Orderbook</div>
         </div>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-            gap: "8px",
-          }}
-        >
-          {/* <Spinner size={20} /> */}
-        </div>
-      )}
+        {orderbook ? (
+          <>
+            <div className="orderbook-header-wrapper">
+              <div className="orderbook-header-cell">Price</div>
+              <div className="orderbook-header-cell">Volume</div>
+              <div className="orderbook-header-cell">Total</div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                overflowY: "hidden",
+              }}
+            >
+              {orderbookType === ORDERBOOK_TYPE.ASK ||
+              orderbookType === ORDERBOOK_TYPE.BOTH ? (
+                <div
+                  className="orderbook-wrapper"
+                  style={{
+                    flexDirection: "column-reverse",
+                  }}
+                  id="asks_ob"
+                  onMouseLeave={() => {
+                    hideTooltip();
+                  }}
+                >
+                  {asksData.map((ask, i) => {
+                    const volBar =
+                      (ask[1] * 100) / topAskVolume > 3
+                        ? (ask[1] * 100) / topAskVolume
+                        : 2;
+                    return (
+                      <div
+                        key={i}
+                        className={"orderbook-row"}
+                        data-value={ask[0].toString() + "_ask"}
+                        onMouseOver={(e: React.MouseEvent<HTMLDivElement>) => {
+                          toggleTooltip(e, true, i, ORDERBOOK_TYPE.ASK);
+                        }}
+                        onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                          toggleTooltip(e, false, i, ORDERBOOK_TYPE.ASK);
+                        }}
+                        onClick={() =>
+                          setOrderbookAction({
+                            type: OrderType.BUY,
+                            price: ask[0],
+                            volume: totalVolume,
+                          })
+                        }
+                      >
+                        <div
+                          style={{
+                            width: `${volBar}%`,
+                            ["left"]: 0,
+                          }}
+                          className="volume-bar asks"
+                        />
+                        <div className="orderbook-numbers-wrapper">
+                          <FormatNumber
+                            number={ask[0]}
+                            precision={7}
+                            className="orderbook-number price-asks"
+                          />
+                          <FormatNumber
+                            number={ask[1]}
+                            precision={7}
+                            className="orderbook-number"
+                          />
+                          <FormatNumber
+                            number={ask[2]}
+                            precision={7}
+                            className="orderbook-number"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
+
+              {spread && (
+                <div className="orderbook-spread">
+                  <p className="spread-label">{`${counter?.symbol} Spread:`}</p>
+                  <FormatNumber number={spread?.valueOf()} />
+                </div>
+              )}
+
+              {orderbookType === ORDERBOOK_TYPE.BID ||
+              orderbookType === ORDERBOOK_TYPE.BOTH ? (
+                <div
+                  className="orderbook-wrapper"
+                  id="bids_ob"
+                  onMouseLeave={() => {
+                    hideTooltip();
+                  }}
+                >
+                  {bidsData.map((bid, i) => {
+                    const volBar =
+                      (bid[1] * 100) / topBidVolume > 3
+                        ? (bid[1] * 100) / topBidVolume
+                        : 2;
+
+                    return (
+                      <div
+                        key={i}
+                        className="orderbook-row"
+                        data-value={bid[0].toString() + "_bid"}
+                        onMouseOver={(e) => {
+                          toggleTooltip(e, true, i, ORDERBOOK_TYPE.BID);
+                        }}
+                        onMouseLeave={(e) => {
+                          toggleTooltip(e, false, i, ORDERBOOK_TYPE.BID);
+                        }}
+                        onClick={() =>
+                          setOrderbookAction({
+                            type: OrderType.SELL,
+                            price: bid[0],
+                            volume: totalVolume,
+                          })
+                        }
+                      >
+                        <div
+                          style={{
+                            width: `${volBar}%`,
+                            left: 0,
+                          }}
+                          className="volume-bar bids"
+                        />
+                        <div className="orderbook-numbers-wrapper">
+                          <FormatNumber
+                            number={bid[0]}
+                            precision={7}
+                            className="orderbook-number price-bids"
+                          />
+                          <FormatNumber
+                            number={bid[1]}
+                            precision={7}
+                            className="orderbook-number"
+                          />
+                          <FormatNumber
+                            number={bid[2]}
+                            precision={7}
+                            className="orderbook-number"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+          </>
+        ) : (
+          <div className="no-data-container">
+            <img src="/trade/images/warning.png" alt="warning" />
+            <p className="no-data">No Data Found</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

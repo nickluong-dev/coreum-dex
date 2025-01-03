@@ -221,7 +221,6 @@ const OrderActions = ({
           : 0
       );
     }
-    // console.log(orderbook);
 
     if (orderbook) {
       if (tradeType === TradeType.MARKET) {
@@ -620,7 +619,7 @@ const OrderActions = ({
                 variant={ButtonVariant.PRIMARY}
                 onClick={() => {
                   //TODO submit
-                  // setLoginModal(true);
+             
                 }}
                 image="/trade/images/arrow-right.svg"
                 width={"100%"}

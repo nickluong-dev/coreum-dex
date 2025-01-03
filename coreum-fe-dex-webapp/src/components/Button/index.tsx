@@ -14,6 +14,7 @@ interface ButtonProps {
 export const ButtonVariant = {
   PRIMARY: "primary",
   SECONDARY: "secondary",
+  TERTIARY: "tertiary",
 };
 
 export type ButtonVariantType =

@@ -1,5 +1,5 @@
 import "./Header.scss";
-import Dropdown from "../Dropdown";
+import Dropdown, { DropdownVariant } from "../Dropdown";
 import Button from "../Button";
 import { useStore } from "@/state";
 import Wallet from "../Wallet";
@@ -32,12 +32,12 @@ const Header = () => {
       <div className="right">
         {/* network selector */}
         <Dropdown
-          variant="network"
+          variant={DropdownVariant.NETWORK}
           items={[
             CoreumNetwork.MAINNET.toUpperCase(),
             CoreumNetwork.TESTNET.toUpperCase(),
           ]}
-          label={network.toUpperCase()}
+          value={network.toUpperCase()}
           image="/trade/images/connect.svg"
           renderItem={(item) => (
             <div

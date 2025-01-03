@@ -3,6 +3,8 @@ import { markets } from "@/mock/markets";
 import "./MarketSelector.scss";
 import { Input, InputType } from "../Input";
 import Button, { ButtonVariant } from "../Button";
+import Modal from "../Modal";
+import Dropdown, { DropdownVariant } from "../Dropdown";
 
 const ActiveTabType = {
   FAV: "fav",
@@ -17,11 +19,10 @@ const MarketSelector = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredMarkets, setFilteredMarkets] = useState(markets);
   const [activeTab, setActiveTab] = useState(ActiveTabType.POPULAR);
+  const [openCreatePairModal, setOpenCreatePairModal] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const toggleMarket = () => setIsOpen((prev) => !prev);
-
-  
 
   // TODO change market here
   const handleClick = (item: any) => {
@@ -39,10 +40,7 @@ const MarketSelector = () => {
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        ref.current &&
-        !ref.current.contains(event.target as Node)
-      ) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -78,7 +76,13 @@ const MarketSelector = () => {
             height={43}
             onValueChange={setSearchQuery}
           />
-          <Button label="Create Pair" variant={ButtonVariant.SECONDARY} />
+          <Button
+            label="Create Pair"
+            variant={ButtonVariant.SECONDARY}
+            onClick={() => {
+              setOpenCreatePairModal(true);
+            }}
+          />
         </div>
 
         <div className="tabs">
@@ -128,6 +132,60 @@ const MarketSelector = () => {
           ))}
         </ul>
       </div>
+
+      <Modal
+        isOpen={openCreatePairModal}
+        onClose={() => setOpenCreatePairModal(false)}
+        title="Create Pair"
+        width={640}
+      >
+        <div className="create-pair-row">
+          {/* TODO reolace items with actual currencies */}
+          <Dropdown
+            variant={DropdownVariant.OUTLINED}
+            value="USD"
+            items={[
+              { symbol: "USD", image: "/trade/images/connect.svg" },
+              { symbol: "EUR", image: "/trade/images/connect.svg" },
+            ]}
+            getvalue={(item) => item.symbol}
+            renderItem={(item) => (
+              <div>
+                <img
+                  src={item.image}
+                  alt={item.symbol}
+                  style={{ width: "20px", marginRight: "10px" }}
+                />
+                {item.symbol}
+              </div>
+            )}
+            label="Base Token"
+          />
+
+          <div className="swap">
+            <img
+              src="/trade/images/swap.svg"
+              alt="swap"
+              onClick={() => {
+                // TODO swap base and quote tokens
+              }}
+            />
+          </div>
+
+          <Dropdown
+            variant={DropdownVariant.OUTLINED}
+            items={[{ symbol: "USD", image: "/trade/images/connect.svg" }]}
+            label="Base Token"
+            value={"test"}
+            image="/trade/images/connect.svg"
+            renderItem={(item) => (
+              <div className="network-item" onClick={() => {}}>
+                test
+              </div>
+            )}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };
