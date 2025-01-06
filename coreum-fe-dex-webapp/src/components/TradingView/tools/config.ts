@@ -76,6 +76,7 @@ export const DEFAULT_CONFIGS = {
   studies_overrides,
   disabled_features,
   enabled_features,
+  toolbar_bg: "#101216",
   layout: {
     attributionLogo: false,
   },

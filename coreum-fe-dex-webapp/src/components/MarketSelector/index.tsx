@@ -150,7 +150,7 @@ const MarketSelector = () => {
             ]}
             getvalue={(item) => item.symbol}
             renderItem={(item) => (
-              <div>
+              <div className="create-pair-token">
                 <img
                   src={item.image}
                   alt={item.symbol}
@@ -179,7 +179,7 @@ const MarketSelector = () => {
             value={"test"}
             image="/trade/images/connect.svg"
             renderItem={(item) => (
-              <div className="network-item" onClick={() => {}}>
+              <div className="create-pair-token" onClick={() => {}}>
                 test
               </div>
             )}

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   autoUpdate,
   shift,
   Placement,
   computePosition,
 } from "@floating-ui/react";
+import { IChartingLibraryWidget } from "@/vendor/tradingview/charting_library/charting_library";
+import { useStore } from "@/state";
 
 export enum TooltipPosition {
   TOP = "top",
@@ -44,13 +46,13 @@ export const useTooltip = () => {
     const cleanup = autoUpdate(element, tooltip, () => {
       if (!tooltip) return;
       wrapper(element, tooltip).then(({ x, y }) => {
-        Object.assign(tooltip.style, {
+        Object.assign(tooltip!.style, {
           left: `${x}px`,
           top: `${y}px`,
         });
       });
     });
-    document.getElementById("root")!.appendChild(tooltip);
+    document.getElementById("root")!.appendChild(tooltip!);
     cleanup();
   };
 
@@ -70,3 +72,86 @@ export const useTooltip = () => {
     isShown,
   };
 };
+
+// tradingview
+
+export function useMountChart(mountChart: () => void) {
+  const { market, tickers } = useStore();
+  const [chartReady, setReady] = useState(false);
+
+  // useEffect(() => setReady(false), [market]);
+  useEffect(() => {
+    setReady(false);
+
+    if (tickers) {
+      setTimeout(() => {
+        mountChart();
+      }, 300);
+    }
+  }, [market]);
+
+  return { chartReady, setReady };
+}
+
+export function useSaveAndClear(
+  mountChart: () => void,
+  setReady: Dispatch<SetStateAction<boolean>>
+) {
+  const { market } = useStore();
+
+  //TODO implement pushNotification
+  // const { pushNotification } = useUIStore();
+  const [clearable, setClearable] = useState(
+    market?.pair_symbol && localStorage.getItem(market.pair_symbol)
+      ? true
+      : false
+  );
+
+  useEffect(() => {
+    if (!clearable) mountChart();
+  }, [clearable]);
+
+  return {
+    clearable,
+    saveChart: () => {
+      window.tvWidget.save((chartData: any) => {
+        if (market?.pair_symbol)
+          window.localStorage.setItem(
+            market.pair_symbol,
+            JSON.stringify(chartData)
+          );
+      });
+      // pushNotification({
+      //   message: "_chartSaved",
+      //   type: "success",
+      // });
+      setClearable(true);
+    },
+    clearChart: () => {
+      if (market?.pair_symbol) {
+        window.localStorage.removeItem(market.pair_symbol);
+        setClearable(false);
+        setReady(false);
+      }
+    },
+  };
+}
+
+// export function useChartTheme(
+//   chartReady: boolean | Dispatch<SetStateAction<boolean>>
+// ) {
+//   const { theme } = useStore();
+//   useEffect(() => {
+//     if (chartReady) {
+//       const widget = window.tvWidget as IChartingLibraryWidget;
+//       widget
+//         .changeTheme(theme === "light" ? "Light" : "Dark")
+//         .then(() => {
+//           widget.applyOverrides(getOverrides(theme));
+//         })
+//         .catch((e) => {
+//           console.error(e);
+//         });
+//     }
+//   }, [chartReady, theme]);
+// }

@@ -1,6 +1,7 @@
 .tickers-container {
   display: flex;
   gap: 40px;
+  align-items: center;
   .price-container {
     display: flex;
     flex-direction: column;
@@ -28,6 +29,20 @@
       &.positive {
         color: var(--Text-text-green, #25d695);
       }
+    }
+  }
+  .volume-base,
+  .volume-counter,
+  .low,
+  .high {
+    .volume .format__number {
+      color: #eee;
+      font-family: "Noto Sans";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: -0.28px;
     }
   }
   .label {

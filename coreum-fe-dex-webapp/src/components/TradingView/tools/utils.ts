@@ -1,4 +1,4 @@
-import { fetchChartFeedBars } from "@/services/general";
+import { getOHLC } from "@/services./general";
 import { ChartFeedBarsParams } from "@/types";
 
 export const getBars = async (
@@ -13,7 +13,7 @@ export const getBars = async (
     to: to.toFixed(0),
     period: resolveResolution(resolution),
   };
-  const feedData = await fetchChartFeedBars(params);
+  const feedData = await getOHLC(params);
   if (feedData && feedData.length > 0) {
     return feedData.map((el) => ({
       time: Number(el[0] * 1000),

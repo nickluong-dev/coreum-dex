@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { SUPPORTED_WALLETS } from "@/utils";
 import "./LoginSelection.scss";
 import { quantum } from "ldrs";
-import { resolve } from "path";
 quantum.register();
 
 const LoginSelection = ({

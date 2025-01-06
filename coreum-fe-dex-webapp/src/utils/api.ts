@@ -27,15 +27,14 @@ const defineService = (service: Services) => {
   }
 };
 
+//TODO what is service going to be here? auth, etc
 export const request = async (
   body: any,
   endpoint: string,
   method: APIMethod,
   service: Services = Services.AUTH,
-  add_auth: boolean = false,
-  token?: string
+  add_auth: boolean = false
 ): Promise<AxiosResponse> => {
-  // const network = useStore().get().network;
   const serviceUrl = defineService(service);
 
   let headers: any = {
@@ -43,12 +42,12 @@ export const request = async (
     Network: useStore.getState().network,
   };
 
-  if (add_auth) {
-    token
-      ? (headers.Authroization = token)
-      : (headers.Authorization = localStorage.token);
-  }
-
+  // if (add_auth === true) {
+  //   headers.Authorization = localStorage.token;
+  //   headers.Address = JSON.parse(
+  //     localStorage[`last_${NetworkMode[network_mode]}_account`]
+  //   ).account.address;
+  // }
   let response: any;
 
   if (method === APIMethod.POST_FILE) {

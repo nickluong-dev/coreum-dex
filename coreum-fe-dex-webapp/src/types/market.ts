@@ -131,3 +131,39 @@ export type Exchange = {
   executed_at: string;
   time: string;
 };
+
+//order
+export enum ORDER_TYPE {
+  LIMIT = 1,
+  MARKET = 2,
+}
+
+export enum TIME_IN_FORCE {
+  GOOD_TILL_CANCELLED = 1,
+  IMMEDIATE_OR_CANCELLED = 2,
+  FILL_OR_KILL = 3,
+}
+
+export enum SIDE_BUY {
+  BUY = 1,
+  SELL = 2,
+}
+
+export type CreateOrderObject = {
+  sender: string;
+  type: ORDER_TYPE;
+  id?: number;
+  base_denom: string;
+  quote_denom: string;
+  price: {
+    exp: number;
+    num: number;
+  };
+  quantity: number;
+  side: SIDE_BUY;
+  good_til: {
+    good_til_block_height: number;
+    good_til_block_time: string;
+  };
+  timeInForce: TIME_IN_FORCE;
+};

@@ -1,15 +1,15 @@
 import { getBars } from "./utils";
-import { useDex } from "@/state/market";
 import {
   BarPeriodParams,
   BarSymbolInfo,
   ChartSubscription,
   DataFeedAsset,
-} from "@/types";
+} from "@/types/market";
 import { POLL_INTERVAL, SUPPORTED_RESOLUTIONS } from "./utils";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import { useStore } from "@/state";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -69,7 +69,7 @@ export class SologenicDataFeed {
     onResolveErrorCallback: any
   ) {
     setTimeout(() => {
-      const currentTicker = useDex.getState().currentTickerBase;
+      const currentTicker = useStore.getState().tickers;
       if (currentTicker && currentTicker.last_price) {
         const zeros = () => {
           let string = "";

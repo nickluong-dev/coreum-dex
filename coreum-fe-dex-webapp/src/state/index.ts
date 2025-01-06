@@ -33,6 +33,8 @@ export type State = {
   setFilledOrders: (filledOrders: any) => void;
   loginModal: boolean;
   setLoginModal: (loginModal: boolean) => void;
+  tickers: any;
+  setTickers: (tickers: any) => void;
 };
 
 export const useStore = create<State>((set, get) => ({
@@ -145,8 +147,22 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
-  market: null,
+  // TODO: fill in default market
+  market: {
+    base: {
+      currency: "",
+      issuer: "",
+    },
+    counter: {
+      currency: "",
+      issuer: "",
+    },
+    pair_symbol: "",
+    reversed_pair_symbol: "",
+  },
   setMarket: (market: Market) => {},
+  tickers: null,
+  setTickers: (tickers: any) => {},
   orderbook: null,
   setOrderbook: (orderbook: any) => {},
   feeEscalation: null,

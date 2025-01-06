@@ -21,7 +21,7 @@ const Home = () => {
 
       <div className="row">
         <Orderbook setOrderbookAction={setOrderbookAction} />
-        <TradingView />
+        <TradingView height="100%" />
         <OrderActions orderbookAction={orderbookAction} />
       </div>
 
