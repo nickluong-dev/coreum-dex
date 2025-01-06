@@ -38,6 +38,7 @@ import { Input, InputType } from "../Input";
 import { useBalance, useChainInfo, useBalances } from "graz";
 import { coreumtestnet, coreum as coreummainnet } from "graz/chains";
 import Button, { ButtonVariant } from "../Button";
+import DoneIcon from "@mui/icons-material/Done";
 
 // import { useDex } from "@/state/market";
 // import { IToken, Order } from "@/types/state";
@@ -76,6 +77,7 @@ const OrderActions = ({
     setFilledOrders,
     wallet,
     setLoginModal,
+    pushNotification,
   } = useStore();
   const [orderType, setOrderType] = useState<OrderType>(OrderType.BUY);
   const [base, setBase] = useState<IToken>();
@@ -619,7 +621,10 @@ const OrderActions = ({
                 variant={ButtonVariant.PRIMARY}
                 onClick={() => {
                   //TODO submit
-             
+                  pushNotification({
+                    type: "success",
+                    message: "Order Placed",
+                  });
                 }}
                 image="/trade/images/arrow-right.svg"
                 width={"100%"}

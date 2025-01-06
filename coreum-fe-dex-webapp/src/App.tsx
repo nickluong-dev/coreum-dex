@@ -5,6 +5,7 @@ import { coreum, coreumtestnet } from "graz/chains";
 import { useStore } from "@/state";
 // import "./i18n";
 import { useEffect } from "react";
+import { Toaster } from "./components/Toaster";
 
 const options = configureGraz({
   chains: [coreum, coreumtestnet],
@@ -22,6 +23,7 @@ function App() {
   return (
     <>
       <GrazProvider grazOptions={options}>
+        <Toaster />
         <RouterProvider router={router} />
       </GrazProvider>
     </>

@@ -3,6 +3,8 @@ import { Client, CoreumNetwork, CosmWasm } from "coreum-js";
 import { APIMethod, Services, request } from "@/utils/api";
 import { getAppEnv } from "@/config/envs";
 import { Market } from "@/types/market";
+import { ToasterProps } from "@/types";
+import { toast } from "react-toastify";
 
 export type State = {
   fetching: boolean;
@@ -19,6 +21,8 @@ export type State = {
   verifyAuthSignTx: () => Promise<void>;
   verifiedAuth: boolean;
   setVerifiedAuth: (verified: boolean) => void;
+
+  pushNotification: (object: ToasterProps) => void;
 
   // market
   market: Market | null;
@@ -144,6 +148,15 @@ export const useStore = create<State>((set, get) => ({
       } catch (error: any) {
         console.log("E_VERIFY_AUTH_SIGN_TX =>", error);
       }
+    }
+  },
+  pushNotification: ({ type, message }) => {
+    if (type === "success") {
+      toast.success(message);
+    } else if (type === "error") {
+      toast.error(message);
+    } else {
+      toast.warning(message);
     }
   },
 
