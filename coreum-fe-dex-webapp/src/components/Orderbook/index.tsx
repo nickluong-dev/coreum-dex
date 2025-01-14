@@ -13,20 +13,7 @@ enum ORDERBOOK_TYPE {
   BOTH = "both",
 }
 
-// const PRECISION_OPTIONS = [
-//   { key: "0.0000000001" },
-//   { key: "0.00000001" },
-//   { key: "0.0000001" },
-//   { key: "0.000001" },
-//   { key: "0.00001" },
-//   { key: "0.0001" },
-//   { key: "0.001" },
-//   { key: "0.01" },
-//   { key: "0.1" },
-// ];
-
 import { orderbook } from "@/mock/orderbook";
-// const orderbook = null;
 
 export default function Orderbook({
   setOrderbookAction,
@@ -43,54 +30,13 @@ export default function Orderbook({
 
   // tooltip state
   const [totalVolume, setTotal] = useState<number>(0);
-  // const { theme, client, address } = useUIStore();
-  const { setOrderbook, market } = useStore();
+  const { market } = useStore();
   const { showTooltip, hideTooltip } = useTooltip();
 
-  const [leftPos, setLeftPos] = useState<number>(0);
-  const [orderbookType, setOrderbookType] = useState<ORDERBOOK_TYPE>(
-    ORDERBOOK_TYPE.BOTH
-  );
-  // const [selectedPrecision, setSelectedPrecision] = useState<{
-  //   [key: string]: string;
-  // }>(PRECISION_OPTIONS[5]);
-  // const [precision, setPrecision] = useState<string>(PRECISION_OPTIONS[0].key);
+  const [leftPos, _] = useState<number>(0);
+  const [orderbookType, __] = useState<ORDERBOOK_TYPE>(ORDERBOOK_TYPE.BOTH);
+
   const componentRef = useRef<HTMLDivElement>(null);
-
-  // subscription
-  // useEffect(() => {
-  //   // const debounceSetOrderbook = debounce(() => {
-  //   //   setOrderbook(address?.address);
-  //   // }, 500);
-
-  //   // debounceSetOrderbook();
-
-  //   setOrderbook(address?.address);
-
-  //   return () => {
-  //     void client?.request({
-  //       command: "unsubscribe",
-  //       books: [
-  //         {
-  //           taker_gets:
-  //             market.base.currency === "XRP"
-  //               ? { currency: "XRP" }
-  //               : {
-  //                   currency: market.base.currency,
-  //                   issuer: market.base.issuer ?? "",
-  //                 },
-  //           taker_pays:
-  //             market.counter.currency === "XRP"
-  //               ? { currency: "XRP" }
-  //               : {
-  //                   currency: market.counter.currency,
-  //                   issuer: market.counter.issuer ?? "",
-  //                 },
-  //         },
-  //       ],
-  //     });
-  //   };
-  // }, [market, client, address]);
 
   // set asks, bids, and spread
   useEffect(() => {
@@ -102,7 +48,7 @@ export default function Orderbook({
       // handle precision change, groups asks and bids by price
       const count = 0.001.toString().split(".")[1]?.length || 0;
       const mergedAsks = asks.reduce(
-        (result: Record<string, number[]>, ask) => {
+        (result: Record<string, number[]>, ask: any) => {
           const a = truncateNumber(ask[0], count + 1);
           const roundedA = roundUp(a, count);
           const key = roundedA.toFixed(count);
@@ -268,15 +214,7 @@ export default function Orderbook({
     return Math.ceil(value * pow) / pow;
   };
 
-  // const counter = findToken({
-  //   currency: market.counter.currency,
-  //   issuer: market.counter.issuer,
-  // });
-  // const base = findToken({
-  //   currency: market.base.currency,
-  //   issuer: market.base.issuer,
-  // });
-
+  //TODO: place holder
   const counter = { symbol: "counter" };
   const base = { symbol: "base" };
 
@@ -348,17 +286,17 @@ export default function Orderbook({
                         <div className="orderbook-numbers-wrapper">
                           <FormatNumber
                             number={ask[0]}
-                            precision={7}
+                            precision={8}
                             className="orderbook-number price-asks"
                           />
                           <FormatNumber
                             number={ask[1]}
-                            precision={7}
+                            precision={8}
                             className="orderbook-number"
                           />
                           <FormatNumber
                             number={ask[2]}
-                            precision={7}
+                            precision={8}
                             className="orderbook-number"
                           />
                         </div>

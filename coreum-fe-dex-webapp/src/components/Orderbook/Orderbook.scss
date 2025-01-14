@@ -19,90 +19,6 @@
     padding: 16px;
     position: relative;
 
-    .title {
-      text-align: center;
-      font-family: "Space Grotesk";
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
-      letter-spacing: -0.28px;
-      background: linear-gradient(180deg, #fff 0%, #5e6773 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .draggableHandle {
-      height: 65%;
-      z-index: 0;
-      top: 10%;
-      width: 90%;
-      position: absolute;
-    }
-    .orderbook-layouts {
-      z-index: 0;
-      display: flex;
-      gap: 16px;
-      .icon:hover {
-        cursor: pointer;
-      }
-    }
-
-    .icons {
-      z-index: 0;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      right: 16px;
-      top: 14px;
-      cursor: pointer;
-      .layout-mode {
-        transition: all 0.2s ease-in-out;
-        display: flex;
-        align-items: center;
-        border-radius: 50%;
-        img {
-          margin: 4px;
-        }
-      }
-      .selector {
-        display: flex;
-        justify-content: end;
-        .selector__options {
-          width: 140px;
-          right: 0;
-          left: auto;
-        }
-      }
-      .orderbook-precision {
-        background-color: transparent;
-        color: var(--Text-text-primary, #eee);
-        text-align: center;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 18px; /* 150% */
-        letter-spacing: -0.24px;
-        width: fit-content;
-        .selector__value__content > img {
-          display: none;
-        }
-      }
-
-      .orderbook-precision-option {
-        p {
-          font-size: 12px;
-        }
-      }
-      .close-icon {
-        z-index: 0;
-        img {
-          width: 16px;
-        }
-      }
-    }
     .orderbook-title {
       font-size: 14px;
       font-weight: 500;
@@ -125,7 +41,7 @@
       }
       .orderbook-header-cell {
         overflow: hidden;
-        color: var(--Shades-Carbon, #5e6773);
+        color: #5e6773;
         text-overflow: ellipsis;
         font-family: "Noto Sans";
         font-size: 12px;
@@ -170,7 +86,7 @@
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
           padding: 0 16px;
-          & > p:last-child {
+          & > p {
             text-align: right;
           }
           .orderbook-number {
@@ -214,7 +130,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: var(--Shades-Dark-2, #17191e);
+      background: #17191e;
 
       .spread-label {
         font-size: 12px;
@@ -230,7 +146,7 @@
       }
       .format__number,
       .decimal {
-        color: var(--Primary-Pure-White, #fff);
+        color: #fff;
         text-align: right;
         font-family: "Noto Sans";
         font-size: 16px;
@@ -240,11 +156,5 @@
         letter-spacing: -0.32px;
       }
     }
-  }
-}
-
-.orderbook-precision-option {
-  p {
-    font-size: 12px;
   }
 }

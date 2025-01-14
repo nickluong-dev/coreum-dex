@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { Box, LinearProgress, Option, Select, Typography } from "@mui/joy/";
 import {
   WalletType,
@@ -6,13 +6,11 @@ import {
   useSuggestChainAndConnect,
   getOfflineSigners,
   useAccount,
-  useDisconnect,
 } from "graz";
 import { coreumtestnet, coreum as coreummainnet } from "graz/chains";
 import { useStore } from "@/state";
 import { CoreumNetwork } from "coreum-js/dist/main/types";
 import { useNavigate } from "react-router-dom";
-// import PushNotification from "@/components/PushNotification";
 import { SUPPORTED_WALLETS } from "@/utils";
 import "./LoginSelection.scss";
 import { quantum } from "ldrs";
@@ -26,28 +24,17 @@ const LoginSelection = ({
   const navigate = useNavigate();
   const { suggestAndConnectAsync } = useSuggestChainAndConnect();
   const wallets = getAvailableWallets();
-  const { data: account, isConnected } = useAccount();
-  const { disconnectAsync } = useDisconnect();
+  const { data: account } = useAccount();
+  // const { disconnectAsync } = useDisconnect();
   const {
     coreum,
-    verifyAuthSignTx,
     verifiedAuth,
     network,
     setWallet,
-    wallet,
-    setUserData,
     userData,
-    setNetwork,
+    pushNotification,
   } = useStore();
   const [isLoading, setIsLoading] = useState(false);
-  
-  // const [openNotification, setOpenNotification] = useState(false);
-  // const [notificationMessage, setNotificationMessage] = useState("");
-
-  // useEffect(() => {
-  //   if (isConnected)
-  //     setWallet({ address: account?.bech32Address, name: account?.name });
-  // }, [isConnected]);
 
   useEffect(() => {
     if (verifiedAuth && userData) {
@@ -67,16 +54,16 @@ const LoginSelection = ({
     await coreum?.addCustomSigner(signer.offlineSignerAuto as any);
   };
 
-  const handleDisconnect = async () => {
-    await disconnectAsync()
-      .then(() => {
-        console.log("disconnected");
-        setWallet({ address: "", name: "" });
-      })
-      .catch((e) => {
-        console.log("E_DISCONNECT =>", e);
-      });
-  };
+  // const handleDisconnect = async () => {
+  //   await disconnectAsync()
+  //     .then(() => {
+  //       console.log("disconnected");
+  //       setWallet({ address: "", name: "" });
+  //     })
+  //     .catch((e) => {
+  //       console.log("E_DISCONNECT =>", e);
+  //     });
+  // };
 
   const connectWithGraz = async (option: WalletType) => {
     try {
@@ -93,6 +80,10 @@ const LoginSelection = ({
       console.log("Connected with:", option);
       setWallet({ address: coreum!.address, name: account?.name });
       closeModal && closeModal(false);
+      pushNotification({
+        message: "Connected",
+        type: "success",
+      });
     } catch (e: any) {
       console.error("Connection failed:", e);
       setIsLoading(false);

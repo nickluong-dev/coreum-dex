@@ -32,8 +32,7 @@ export const request = async (
   body: any,
   endpoint: string,
   method: APIMethod,
-  service: Services = Services.AUTH,
-  add_auth: boolean = false
+  service: Services = Services.AUTH
 ): Promise<AxiosResponse> => {
   const serviceUrl = defineService(service);
 
@@ -42,12 +41,6 @@ export const request = async (
     Network: useStore.getState().network,
   };
 
-  // if (add_auth === true) {
-  //   headers.Authorization = localStorage.token;
-  //   headers.Address = JSON.parse(
-  //     localStorage[`last_${NetworkMode[network_mode]}_account`]
-  //   ).account.address;
-  // }
   let response: any;
 
   if (method === APIMethod.POST_FILE) {

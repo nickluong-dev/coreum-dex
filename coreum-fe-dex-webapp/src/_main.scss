@@ -53,3 +53,17 @@ p {
     letter-spacing: -0.16px;
   }
 }
+
+.title {
+  text-align: center;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  background: linear-gradient(180deg, #fff 0%, #5e6773 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

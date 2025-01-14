@@ -1,8 +1,8 @@
 export type Market = {
   base: MarketSide;
   counter: MarketSide;
-  ripple_symbol?: string;
-  reversed_symbol?: string;
+  pair_symbol?: string;
+  reversed_pair_symbol?: string;
 };
 export type MarketSide = {
   currency: string;

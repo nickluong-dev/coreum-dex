@@ -240,6 +240,31 @@
       }
     }
   }
+
+  .available-balances {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .title {
+      text-align: left;
+    }
+    .balance-row {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .balance-label {
+      color: var(--Shades-Carbon, #5e6773);
+      font-family: "Noto Sans";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 18px; /* 150% */
+    }
+  }
+
   .horizontal-wrapper {
     .balance-wrapper {
       display: flex;

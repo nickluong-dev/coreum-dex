@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./Header.scss";
 import Dropdown, { DropdownVariant } from "../Dropdown";
 import Button from "../Button";
@@ -38,7 +38,7 @@ const Header = () => {
   const handleScroll = (direction: "left" | "right") => {
     const container = scrollContainerRef.current;
     if (container) {
-      const scrollAmount = 100; // Adjust scroll distance as needed
+      const scrollAmount = 100;
       container.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -125,7 +125,6 @@ const Header = () => {
       </div>
 
       <div className="right">
-        {/* network selector */}
         <Dropdown
           variant={DropdownVariant.NETWORK}
           items={[
@@ -152,7 +151,6 @@ const Header = () => {
           )}
         />
 
-        {/* wallet connect button */}
         {wallet ? (
           <Wallet />
         ) : (

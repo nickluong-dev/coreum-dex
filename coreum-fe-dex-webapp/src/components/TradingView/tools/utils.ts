@@ -13,7 +13,7 @@ export const getBars = async (
     to: to.toFixed(0),
     period: resolveResolution(resolution),
   };
-  const feedData = await getOHLC(params);
+  const feedData = await getOHLC(symbol, params.from, params.to, params.period);
   if (feedData && feedData.length > 0) {
     return feedData.map((el) => ({
       time: Number(el[0] * 1000),

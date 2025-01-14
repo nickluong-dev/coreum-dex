@@ -4,7 +4,7 @@ import { useStore } from "@/state";
 import { useDisconnect } from "graz";
 import "./Wallet.scss";
 
-const Wallet = <T,>({}) => {
+const Wallet = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { wallet, setLoginModal } = useStore();
   const { disconnectAsync } = useDisconnect();

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import themes from "./tools/theme";
 import { widget as Widget } from "../../vendor/tradingview/charting_library";
 import { SologenicDataFeed } from "./tools/api";
 import { DEFAULT_CONFIGS, getOverrides } from "./tools/config";
-import { useChartTheme, useSaveAndClear, useMountChart } from "@/hooks";
+import { useSaveAndClear, useMountChart } from "@/hooks";
 // import { findToken, handleSwitchChange } from "@/utils";
 import "./TradingView.scss";
 import { useStore } from "@/state";

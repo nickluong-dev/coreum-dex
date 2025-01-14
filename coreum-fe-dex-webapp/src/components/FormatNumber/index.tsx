@@ -15,7 +15,6 @@ export interface FormatNumberProps {
   smallDecimals?: boolean;
   customStyle?: CSSProperties;
   precision?: number;
-  fillZero?: boolean;
   prefix?: string | ReactNode;
   suffix?: string | ReactNode;
 }
@@ -29,7 +28,6 @@ export function FormatNumber(props: FormatNumberProps) {
     smallDecimals = true,
     customStyle,
     precision,
-    fillZero = false,
     prefix,
     suffix,
   } = props;
@@ -44,25 +42,20 @@ export function FormatNumber(props: FormatNumberProps) {
   if (!ints.includes(",")) {
     bigInts = ints === "-0" ? ints : new BigNumber(ints).toFormat();
   }
-  let finalDecimals = decimals;
+
+  let finalDecimals = decimals || "";
 
   if (precision) {
-    const decsArr = decimals?.split("");
-    if (decimals?.length > precision) {
-      let newDecs = [];
+    const decsArr = finalDecimals.split("");
 
-      for (var i = 0; i < precision; i++) {
-        newDecs.push(decsArr[i]);
+    if (decsArr.length < precision) {
+      const numZero = precision - decsArr.length;
+      for (let i = 0; i < numZero; i++) {
+        decsArr.push("0");
       }
-
-      finalDecimals = newDecs.join("");
-    } else if (decimals?.length <= precision && fillZero) {
-      let newDecs = [...decsArr];
-      const numZero = precision - decimals.length;
-      for (var i = 0; i < numZero; i++) {
-        newDecs.push("0");
-      }
-      finalDecimals = newDecs.join("");
+      finalDecimals = decsArr.join("");
+    } else if (decsArr.length > precision) {
+      finalDecimals = decsArr.slice(0, precision).join("");
     }
   }
 
@@ -76,7 +69,7 @@ export function FormatNumber(props: FormatNumberProps) {
     >
       {prefix && prefix}
       {bigInts === "NaN" ? "--" : bigInts}
-      {decimals && (
+      {finalDecimals && (
         <span className={`${smallDecimals ? "decimal" : ""}`}>
           .{finalDecimals}
         </span>
@@ -87,14 +80,11 @@ export function FormatNumber(props: FormatNumberProps) {
     <>
       {prefix && prefix}
       {bigInts === "NaN" ? "--" : bigInts}
-      {decimals &&
-        (smallDecimals ? (
-          <span className={`${smallDecimals ? "decimal" : ""}`}>
-            .{finalDecimals}
-          </span>
-        ) : (
-          `.${finalDecimals}`
-        ))}
+      {finalDecimals && (
+        <span className={`${smallDecimals ? "decimal" : ""}`}>
+          .{finalDecimals}
+        </span>
+      )}
       {suffix && suffix}
     </>
   );

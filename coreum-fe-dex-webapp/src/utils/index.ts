@@ -131,15 +131,6 @@ export const truncate = (n: number | string) => {
   return num;
 };
 
-export const xrpToDrops = (xrp: string) => {
-  const xrpBN = new BigNumber(xrp);
-
-  return xrpBN
-    .times(1000000.0)
-    .integerValue(BigNumber.ROUND_FLOOR)
-    .toString(10);
-};
-
 enum WalletType {
   KEPLR = "keplr",
   LEAP = "leap",

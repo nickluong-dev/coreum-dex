@@ -74,7 +74,6 @@ export const useTooltip = () => {
 };
 
 // tradingview
-
 export function useMountChart(mountChart: () => void) {
   const { market, tickers } = useStore();
   const [chartReady, setReady] = useState(false);

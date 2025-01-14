@@ -1,42 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { markets } from "@/mock/markets";
 import "./MarketSelector.scss";
-import { Input, InputType } from "../Input";
-import Button, { ButtonVariant } from "../Button";
+import Button from "../Button";
 import Modal from "../Modal";
 import Dropdown, { DropdownVariant } from "../Dropdown";
 
-const ActiveTabType = {
-  FAV: "fav",
-  POPULAR: "popular",
-};
+// const ActiveTabType = {
+//   FAV: "fav",
+//   POPULAR: "popular",
+// };
 
 const MarketSelector = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState<string | undefined>(
     markets[0].symbol
   );
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredMarkets, setFilteredMarkets] = useState(markets);
-  const [activeTab, setActiveTab] = useState(ActiveTabType.POPULAR);
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [filteredMarkets, setFilteredMarkets] = useState(markets);
+  // const [activeTab, setActiveTab] = useState(ActiveTabType.POPULAR);
   const [openCreatePairModal, setOpenCreatePairModal] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const toggleMarket = () => setIsOpen((prev) => !prev);
+  // const toggleMarket = () => setIsOpen((prev) => !prev);
 
   // TODO change market here
-  const handleClick = (item: any) => {
-    setSelectedLabel(item.symbol);
-    setIsOpen(false);
-  };
+  // const handleClick = (item: any) => {
+  //   setSelectedLabel(item.symbol);
+  //   setIsOpen(false);
+  // };
 
-  useEffect(() => {
-    setFilteredMarkets(
-      markets.filter((item) =>
-        item.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
-  }, [searchQuery]);
+  // useEffect(() => {
+  //   setFilteredMarkets(
+  //     markets.filter((item) =>
+  //       item.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  //     )
+  //   );
+  // }, [searchQuery]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -55,7 +54,12 @@ const MarketSelector = () => {
   return (
     <div className="market-selector-container" ref={ref}>
       {/* Market Label Button */}
-      <div className="market-label" onClick={toggleMarket}>
+      <div
+        className="market-label"
+        onClick={() => {
+          setOpenCreatePairModal(true);
+        }}
+      >
         <div className="market-label-selected">{selectedLabel}</div>
         <img
           className={`market-arrow ${isOpen ? "rotate" : ""}`}
@@ -64,9 +68,7 @@ const MarketSelector = () => {
         />
       </div>
 
-      {/* Market List Dropdown */}
-      <div className={`market-list ${isOpen ? "open" : ""}`}>
-        {/* Search and Tabs */}
+      {/* <div className={`market-list ${isOpen ? "open" : ""}`}>
         <div className="search">
           <Input
             inputName="search"
@@ -131,7 +133,7 @@ const MarketSelector = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
       <Modal
         isOpen={openCreatePairModal}
@@ -179,7 +181,7 @@ const MarketSelector = () => {
               label="Base Token"
               value={"test"}
               image="/trade/images/connect.svg"
-              renderItem={(item) => (
+              renderItem={(_) => (
                 <div className="create-pair-token" onClick={() => {}}>
                   test
                 </div>

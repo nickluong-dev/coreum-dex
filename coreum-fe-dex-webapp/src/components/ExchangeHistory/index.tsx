@@ -1,68 +1,10 @@
 import { Fragment, useRef } from "react";
-// import { useStore } from "@/state";
 import "./ExchangeHistory.scss";
 import dayjs from "dayjs";
 import { tradeHistory } from "@/mock/trades";
-// const tradeHistory = null;
 
 const ExchangeHistory = () => {
-  // const { market, network } = useStore();
-  // const [beforeId, setBeforeId] = useState<string | undefined>(undefined);
   const historyRef = useRef<HTMLDivElement>(null);
-
-  // Fetch trade history every 15 seconds
-  // useEffect(() => {
-  //   void setTradeHistory();
-  //   const tradeHistoryInterval = setInterval(() => {
-  //     void setTradeHistory();
-  //   }, 15000);
-
-  //   return () => {
-  //     clearInterval(tradeHistoryInterval);
-  //   };
-  // }, [network, market]);
-
-  // fetch more data when beforeId changes
-  // useEffect(() => {
-  //   if (beforeId) {
-  //     void setTradeHistory(beforeId);
-  //   }
-  // }, [beforeId]);
-
-  const getTradeHistory = () => {
-    return tradeHistory;
-  };
-
-  // handle scrolling
-  // useEffect(() => {
-  //   if (!historyRef.current) return;
-
-  //   const handleScroll = () => {
-  //     const historyBodyElement = historyRef.current;
-  //     if (!historyBodyElement) return;
-
-  //     const { scrollTop, scrollHeight, clientHeight } = historyBodyElement;
-  //     if (scrollTop + clientHeight >= scrollHeight) {
-  //       if (getTradeHistory().length > 0) {
-  //         const currentBeforeId =
-  //           getTradeHistory()[getTradeHistory().length - 1].id;
-
-  //         setBeforeId(currentBeforeId);
-  //       }
-  //     }
-  //   };
-
-  //   const historyBodyElementCurrent = historyRef.current;
-  //   if (historyBodyElementCurrent) {
-  //     historyBodyElementCurrent.addEventListener("scroll", handleScroll);
-  //   }
-
-  //   return () => {
-  //     if (historyBodyElementCurrent) {
-  //       historyBodyElementCurrent.removeEventListener("scroll", handleScroll);
-  //     }
-  //   };
-  // }, [getTradeHistory]);
 
   return (
     <div className="exchange-history-container">
