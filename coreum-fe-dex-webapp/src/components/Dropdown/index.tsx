@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Dropdown.scss";
 
 interface DropdownProps<T> {
@@ -32,12 +32,20 @@ const Dropdown = <T,>({
 }: DropdownProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedvalue, setSelectedvalue] = useState<string | undefined>(value);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!value && items.length > 0) {
       setSelectedvalue(items[0] as unknown as string);
     }
   }, [value, items]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   const closeDropdown = () => setIsOpen(false);
@@ -47,18 +55,34 @@ const Dropdown = <T,>({
     closeDropdown();
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      closeDropdown();
+    }
+  };
+
   return (
-    <div className="dropdown-container">
+    <div className="dropdown-container" ref={dropdownRef}>
       {label && <div className="dropdown-label">{label}</div>}
       <div className={`dropdown dropdown-${variant}`}>
         <button
           className={`dropdown-value ${isOpen ? "active" : ""}`}
           onClick={toggleDropdown}
         >
-          {image && (
-            <img src={image} alt={value} className="dropdown-selected-image" />
-          )}
-          <div className="dropdown-value-selected">{selectedvalue}</div>
+          <div className="dropdown-value-left">
+            {image && (
+              <img
+                src={image}
+                alt={value}
+                className="dropdown-selected-image"
+              />
+            )}
+            <div className="dropdown-value-selected">{selectedvalue}</div>
+          </div>
+
           <img
             className={`dropdown-arrow ${isOpen ? "rotate" : ""}`}
             src="/trade/images/arrow.svg"

@@ -13,17 +13,17 @@ enum ORDERBOOK_TYPE {
   BOTH = "both",
 }
 
-const PRECISION_OPTIONS = [
-  { key: "0.0000000001" },
-  { key: "0.00000001" },
-  { key: "0.0000001" },
-  { key: "0.000001" },
-  { key: "0.00001" },
-  { key: "0.0001" },
-  { key: "0.001" },
-  { key: "0.01" },
-  { key: "0.1" },
-];
+// const PRECISION_OPTIONS = [
+//   { key: "0.0000000001" },
+//   { key: "0.00000001" },
+//   { key: "0.0000001" },
+//   { key: "0.000001" },
+//   { key: "0.00001" },
+//   { key: "0.0001" },
+//   { key: "0.001" },
+//   { key: "0.01" },
+//   { key: "0.1" },
+// ];
 
 import { orderbook } from "@/mock/orderbook";
 // const orderbook = null;
@@ -51,10 +51,10 @@ export default function Orderbook({
   const [orderbookType, setOrderbookType] = useState<ORDERBOOK_TYPE>(
     ORDERBOOK_TYPE.BOTH
   );
-  const [selectedPrecision, setSelectedPrecision] = useState<{
-    [key: string]: string;
-  }>(PRECISION_OPTIONS[5]);
-  const [precision, setPrecision] = useState<string>(PRECISION_OPTIONS[0].key);
+  // const [selectedPrecision, setSelectedPrecision] = useState<{
+  //   [key: string]: string;
+  // }>(PRECISION_OPTIONS[5]);
+  // const [precision, setPrecision] = useState<string>(PRECISION_OPTIONS[0].key);
   const componentRef = useRef<HTMLDivElement>(null);
 
   // subscription
@@ -100,7 +100,7 @@ export default function Orderbook({
       const { asks, bids } = orderbookData;
 
       // handle precision change, groups asks and bids by price
-      const count = precision.toString().split(".")[1]?.length || 0;
+      const count = 0.001.toString().split(".")[1]?.length || 0;
       const mergedAsks = asks.reduce(
         (result: Record<string, number[]>, ask) => {
           const a = truncateNumber(ask[0], count + 1);
@@ -166,7 +166,7 @@ export default function Orderbook({
         setSpread(BigNumber(bestBid).toFixed());
       }
     }
-  }, [orderbook, market, precision]);
+  }, [orderbook, market]);
 
   // scroll asks to bottom
   useEffect(() => {
@@ -195,19 +195,6 @@ export default function Orderbook({
       setTopBidVolume(highestBidVolume);
     }
   }, [asksData, bidsData]);
-
-  // // timer for ripple loading msg
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     if (!orderbook) {
-  //       setRippleLoading(true);
-  //     }
-  //   }, 5000);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [orderbook]);
 
   const toggleTooltip = (
     e: React.MouseEvent<HTMLDivElement>,

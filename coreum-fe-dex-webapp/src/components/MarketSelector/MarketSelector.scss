@@ -201,22 +201,30 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-
-  .create-pair-row {
+  .create-pair-container {
     display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 16px;
-    .swap {
-      cursor: pointer;
+    flex-direction: column;
+    gap: 32px;
+    .create-pair-row {
       display: flex;
-      height: 48px;
-      align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      .swap {
+        cursor: pointer;
+        display: flex;
+        height: 48px;
+        align-items: center;
+        gap: 10px;
+      }
+      .create-pair-token {
+        display: flex;
+        align-items: center;
+      }
     }
-    .create-pair-token {
+    .button-row {
       display: flex;
-      align-items: center;
+      justify-content: flex-end;
     }
   }
 }

@@ -40,6 +40,7 @@ const LoginSelection = ({
     setNetwork,
   } = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  
   // const [openNotification, setOpenNotification] = useState(false);
   // const [notificationMessage, setNotificationMessage] = useState("");
 

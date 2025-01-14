@@ -9,6 +9,7 @@ interface ButtonProps {
   variant?: ButtonVariantType;
   height?: string | number;
   width?: string | number;
+  disabled?: boolean;
 }
 
 export const ButtonVariant = {
@@ -28,12 +29,14 @@ const Button: React.FC<ButtonProps> = ({
   variant = ButtonVariant.PRIMARY,
   height,
   width,
+  disabled,
 }) => {
   return (
     <button
-      className={`button button-${variant} ${className || ""}`}
+      className={`button button-${variant}  ${className || ""}`}
       onClick={onClick}
       style={{ height, width }}
+      disabled={disabled}
     >
       {image && <img src={image} alt={label} className="button-image" />}
       <span className="button-label">{label}</span>

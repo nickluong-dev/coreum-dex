@@ -139,51 +139,58 @@ const MarketSelector = () => {
         title="Create Pair"
         width={640}
       >
-        <div className="create-pair-row">
-          {/* TODO reolace items with actual currencies */}
-          <Dropdown
-            variant={DropdownVariant.OUTLINED}
-            value="USD"
-            items={[
-              { symbol: "USD", image: "/trade/images/connect.svg" },
-              { symbol: "EUR", image: "/trade/images/connect.svg" },
-            ]}
-            getvalue={(item) => item.symbol}
-            renderItem={(item) => (
-              <div className="create-pair-token">
-                <img
-                  src={item.image}
-                  alt={item.symbol}
-                  style={{ width: "20px", marginRight: "10px" }}
-                />
-                {item.symbol}
-              </div>
-            )}
-            label="Base Token"
-          />
+        <div className="create-pair-container">
+          <div className="create-pair-row">
+            {/* TODO replace items with actual currencies */}
+            <Dropdown
+              variant={DropdownVariant.OUTLINED}
+              value="USD"
+              items={[
+                { symbol: "USD", image: "/trade/images/connect.svg" },
+                { symbol: "EUR", image: "/trade/images/connect.svg" },
+              ]}
+              getvalue={(item) => item.symbol}
+              renderItem={(item) => (
+                <div className="create-pair-token">
+                  <img
+                    src={item.image}
+                    alt={item.symbol}
+                    style={{ width: "20px", marginRight: "10px" }}
+                  />
+                  {item.symbol}
+                </div>
+              )}
+              label="Base Token"
+            />
 
-          <div className="swap">
-            <img
-              src="/trade/images/swap.svg"
-              alt="swap"
-              onClick={() => {
-                // TODO swap base and quote tokens
-              }}
+            <div className="swap">
+              <img
+                src="/trade/images/swap.svg"
+                alt="swap"
+                onClick={() => {
+                  // TODO swap base and quote tokens
+                }}
+              />
+            </div>
+
+            <Dropdown
+              variant={DropdownVariant.OUTLINED}
+              items={[{ symbol: "USD", image: "/trade/images/connect.svg" }]}
+              label="Base Token"
+              value={"test"}
+              image="/trade/images/connect.svg"
+              renderItem={(item) => (
+                <div className="create-pair-token" onClick={() => {}}>
+                  test
+                </div>
+              )}
             />
           </div>
 
-          <Dropdown
-            variant={DropdownVariant.OUTLINED}
-            items={[{ symbol: "USD", image: "/trade/images/connect.svg" }]}
-            label="Base Token"
-            value={"test"}
-            image="/trade/images/connect.svg"
-            renderItem={(item) => (
-              <div className="create-pair-token" onClick={() => {}}>
-                test
-              </div>
-            )}
-          />
+          <div className="button-row">
+            {/* TODO: add condition for disable */}
+            <Button label="Continue" width={160} disabled />
+          </div>
         </div>
       </Modal>
     </div>

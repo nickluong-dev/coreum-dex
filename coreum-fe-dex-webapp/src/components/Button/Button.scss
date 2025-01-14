@@ -11,8 +11,14 @@
   cursor: pointer;
 
   &:disabled {
-    background-color: #cccccc;
+    background: #17191e;
+    color: #2b3138;
     cursor: not-allowed;
+    &:hover {
+      opacity: 1;
+      background: #17191e;
+      color: #2b3138;
+    }
   }
 
   .button-image {

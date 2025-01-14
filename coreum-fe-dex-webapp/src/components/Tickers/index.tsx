@@ -4,6 +4,7 @@ import { toFixedDown } from "@/utils";
 import "./Tickers.scss";
 import { FormatNumber } from "../FormatNumber";
 
+//test
 const denom =
   "dextestdenom9-devcore1p0edzyzpazpt68vdrjy20c42lvwsjpvfzahygs_dextestdenom1-devcore1p0edzyzpazpt68vdrjy20c42lvwsjpvfzahygs";
 const denom2 =

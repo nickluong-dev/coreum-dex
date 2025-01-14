@@ -99,8 +99,7 @@ export function useSaveAndClear(
 ) {
   const { market } = useStore();
 
-  //TODO implement pushNotification
-  // const { pushNotification } = useUIStore();
+  const { pushNotification } = useStore();
   const [clearable, setClearable] = useState(
     market?.pair_symbol && localStorage.getItem(market.pair_symbol)
       ? true
@@ -121,10 +120,10 @@ export function useSaveAndClear(
             JSON.stringify(chartData)
           );
       });
-      // pushNotification({
-      //   message: "_chartSaved",
-      //   type: "success",
-      // });
+      pushNotification({
+        message: "_chartSaved",
+        type: "success",
+      });
       setClearable(true);
     },
     clearChart: () => {

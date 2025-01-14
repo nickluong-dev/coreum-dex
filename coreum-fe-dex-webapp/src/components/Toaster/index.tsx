@@ -10,7 +10,7 @@ interface ToasterProps {
 
 export const Toaster = ({
   customStyle,
-  position = "top-right",
+  position = "bottom-right",
 }: ToasterProps) => {
   return (
     <ToastContainer
@@ -22,7 +22,6 @@ export const Toaster = ({
       theme={"colored"}
       position={position}
       className={`toaster-container `}
-      bodyClassName={`toaster-body`}
       closeButton={({ closeToast }) => (
         <img
           src=""

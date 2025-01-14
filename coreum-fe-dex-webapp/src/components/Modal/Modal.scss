@@ -15,7 +15,6 @@
 .modal {
   // overflow: hidden;
   animation: fadeIn 0.3s ease-in-out;
-
   display: flex;
   padding: 32px;
   flex-direction: column;
@@ -53,7 +52,7 @@
 }
 
 .modal-content {
-  padding: 16px;
+  // padding: 16px;
   width: 100%;
 }
 

@@ -1,4 +1,4 @@
-import { getOHLC } from "@/services./general";
+import { getOHLC } from "@/services/general";
 import { ChartFeedBarsParams } from "@/types";
 
 export const getBars = async (
